@@ -30,30 +30,31 @@ class _LandingPageState extends State<LandingPage> {
   ];
 
   late double lineIndicatorWidth;
-  late CrossAxisAlignment lineIndicatorAlignment;
+  late MainAxisAlignment lineIndicatorAlignment;
 
   final PageController _pageController = PageController(initialPage: 0);
+
+  void _lineIndicatorController() {
+    print(_currentPage);
+    if (_currentPage == 0) {
+      lineIndicatorAlignment = MainAxisAlignment.end;
+    }
+    if (_currentPage == 2) {
+      lineIndicatorAlignment = MainAxisAlignment.start;
+    }
+  }
 
   @override
   void initState() {
     // TODO: implement initState
-    if (_currentPage == 0) {
-      lineIndicatorWidth = double.infinity;
-    } else if (_currentPage == 1){
-
-    } else if (_currentPage == 2){
-
-    }
-
-
+    _lineIndicatorController();
     super.initState();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    lineIndicatorWidth;
-    lineIndicatorAlignment;
+    _lineIndicatorController();
     super.dispose();
   }
 
@@ -115,17 +116,25 @@ class _LandingPageState extends State<LandingPage> {
                     ],
                     color: primaryLightBackgroundColor),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      width: lineIndicatorWidth,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20.0),
-                            bottomLeft: Radius.circular(20.0)),
-                        color: primaryColor,
-                      ),
+                    Row(
+                      mainAxisAlignment: lineIndicatorAlignment,
+                      children: [
+                        AnimatedContainer(
+                          width: (_currentPage == 0 || _currentPage == 2)
+                              ? MediaQuery.of(context).size.width / 2
+                              : MediaQuery.of(context).size.width,
+                          height: 20,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20.0),
+                                bottomLeft: Radius.circular(20.0)),
+                            color: primaryColor,
+                          ),
+                          curve: Curves.easeIn,
+                          duration: const Duration(milliseconds: 300),
+                        ),
+                      ],
                     ),
                     Container(),
                     const SizedBox(
@@ -188,6 +197,9 @@ class _LandingPageState extends State<LandingPage> {
                                           const Duration(milliseconds: 300),
                                       curve: Curves.easeIn,
                                     );
+                                    setState(() {
+                                      _lineIndicatorController();
+                                    });
                                   },
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.all(12.0),
@@ -239,6 +251,9 @@ class _LandingPageState extends State<LandingPage> {
                                           const Duration(milliseconds: 300),
                                       curve: Curves.easeIn,
                                     );
+                                    setState(() {
+                                      _lineIndicatorController();
+                                    });
                                   },
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.all(12.0),
