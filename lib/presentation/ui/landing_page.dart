@@ -103,7 +103,7 @@ class _LandingPageState extends State<LandingPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Container(
-                height: 280,
+                height: 320,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.vertical(
                       top: Radius.circular(20),
@@ -284,7 +284,7 @@ class _LandingPageState extends State<LandingPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4)),
-                                    color: primaryColor),
+                                    color: _currentPage == 0 ? primaryColor : darkGreyColor),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -295,7 +295,7 @@ class _LandingPageState extends State<LandingPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4)),
-                                    color: primaryColor),
+                                    color: _currentPage == 1 ? primaryColor : darkGreyColor),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -306,7 +306,7 @@ class _LandingPageState extends State<LandingPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4)),
-                                    color: primaryColor),
+                                    color: _currentPage == 2 ? primaryColor : darkGreyColor),
                               ),
                             ],
                           ),
