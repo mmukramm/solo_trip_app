@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
-import 'package:solo_trip_app/presentation/widget/first_landing_page_bottom_sheet.dart';
-import 'package:solo_trip_app/presentation/widget/second_landing_page_bottom_sheet.dart';
-import 'package:solo_trip_app/presentation/widget/third_landing_page_bottom_sheet.dart';
+import 'package:solo_trip_app/presentation/widget/landing_page_content.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -23,14 +21,9 @@ class _LandingPageState extends State<LandingPage> {
 
   int _currentPage = 0;
 
-  List landingPageBottomSheet = [
-    FirstLandingPageBottomSheet(),
-    SecondLandingPageBottomSheet(),
-    ThirdLandingPageBottomSheet(),
-  ];
-
   late double lineIndicatorWidth;
   late MainAxisAlignment lineIndicatorAlignment;
+  late BorderRadius lineIndicatorBorderRadius;
 
   final PageController _pageController = PageController(initialPage: 0);
 
@@ -38,9 +31,19 @@ class _LandingPageState extends State<LandingPage> {
     print(_currentPage);
     if (_currentPage == 0) {
       lineIndicatorAlignment = MainAxisAlignment.end;
+      lineIndicatorBorderRadius = BorderRadius.only(
+          topRight: Radius.circular(20.0), bottomLeft: Radius.circular(20.0));
     }
+
+    if (_currentPage == 1) {
+      lineIndicatorBorderRadius =
+          BorderRadius.vertical(top: Radius.circular(20));
+    }
+
     if (_currentPage == 2) {
       lineIndicatorAlignment = MainAxisAlignment.start;
+      lineIndicatorBorderRadius = BorderRadius.only(
+          topLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0));
     }
   }
 
@@ -60,6 +63,53 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    List contentText = [
+      {
+        "firstText": "Selamat Datang Di",
+        "firstTextStyle": Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: darkGreyColor,
+            ),
+        "secondText": "Solo Trip App",
+        "secondTextStyle": Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: primaryColor,
+            ),
+        "thirdText": "Pilih negara-negara destinasi wisata kamu.",
+        "thirdTextStyle": Theme.of(context).textTheme.bodyMedium!.copyWith(
+              color: darkGreyColor,
+            ),
+      },
+      {
+        "firstText": "",
+        "firstTextStyle": Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: primaryColor,
+            ),
+        "secondText":
+            "Pilih negara-negara pilihanmu kemudian simpan agar kamu tidak lupa.",
+        "secondTextStyle": Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(color: darkGreyColor),
+        "thirdText": "",
+        "thirdTextStyle": Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: darkGreyColor,
+            ),
+      },
+      {
+        "firstText": "",
+        "firstTextStyle": Theme.of(context).textTheme.bodyLarge!.copyWith(
+              color: darkGreyColor,
+            ),
+        "secondText": "Selamat Menjelajah",
+        "secondTextStyle": Theme.of(context).textTheme.displayLarge!.copyWith(
+              color: primaryColor,
+            ),
+        "thirdText": "",
+        "thirdTextStyle": Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(color: darkGreyColor),
+      },
+    ];
     return SafeArea(
       child: Stack(
         children: [
@@ -69,6 +119,7 @@ class _LandingPageState extends State<LandingPage> {
             onPageChanged: (index) {
               setState(() {
                 _currentPage = index;
+                _lineIndicatorController();
               });
             },
             itemBuilder: (_, index) {
@@ -116,159 +167,150 @@ class _LandingPageState extends State<LandingPage> {
                     ],
                     color: primaryLightBackgroundColor),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      mainAxisAlignment: lineIndicatorAlignment,
+                    Column(
                       children: [
-                        AnimatedContainer(
-                          width: (_currentPage == 0 || _currentPage == 2)
-                              ? MediaQuery.of(context).size.width / 2
-                              : MediaQuery.of(context).size.width,
-                          height: 20,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20.0),
-                                bottomLeft: Radius.circular(20.0)),
-                            color: primaryColor,
-                          ),
-                          curve: Curves.easeIn,
-                          duration: const Duration(milliseconds: 300),
+                        Row(
+                          mainAxisAlignment: lineIndicatorAlignment,
+                          children: [
+                            AnimatedContainer(
+                              width: (_currentPage == 0 || _currentPage == 2)
+                                  ? MediaQuery.of(context).size.width / 2
+                                  : MediaQuery.of(context).size.width,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: lineIndicatorBorderRadius,
+                                color: primaryColor,
+                              ),
+                              curve: Curves.easeIn,
+                              duration: const Duration(milliseconds: 300),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 26,
+                        ),
+                        LandingPageContent(
+                          firstText: contentText[_currentPage]["firstText"],
+                          firstTextStyle: contentText[_currentPage]
+                              ["firstTextStyle"],
+                          secondText: contentText[_currentPage]["secondText"],
+                          secondTextStyle: contentText[_currentPage]
+                              ["secondTextStyle"],
+                          thirdText: contentText[_currentPage]["thirdText"],
+                          thirdTextStyle: contentText[_currentPage]
+                              ["thirdTextStyle"],
                         ),
                       ],
                     ),
-                    Container(),
-                    const SizedBox(
-                      height: 26,
-                    ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Text(
-                            "Selamat Datang Di",
-                            style:
-                                Theme.of(context).textTheme.bodyLarge!.copyWith(
-                                      color: darkGreyColor,
-                                    ),
-                          ),
-                          Text(
-                            "Solo Trip App",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge!
-                                .copyWith(
-                                  color: primaryColor,
-                                ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            "Pilih negara-negara destinasi wisata kamu.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: darkGreyColor,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      padding: const EdgeInsets.only(
+                          left: 32, right: 32, bottom: 32),
                       child: Column(
                         children: [
-                          Row(
+                          Stack(
                             children: [
-                              SizedBox(
-                                width: 48,
-                                height: 48,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    _currentPage > 0 ? _currentPage-- : 0;
-                                    _pageController.animateToPage(
-                                      _currentPage,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeIn,
-                                    );
-                                    setState(() {
-                                      _lineIndicatorController();
-                                    });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.all(12.0),
-                                    fixedSize: Size(48, 48),
-                                    backgroundColor:
-                                        secondaryLightBackgroundColor,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Visibility(
+                                    visible: (_currentPage == 1 ||
+                                        _currentPage == 2),
+                                    child: SizedBox(
+                                      width: 48,
+                                      height: 48,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          _currentPage > 0 ? _currentPage-- : 0;
+                                          _pageController.animateToPage(
+                                            _currentPage,
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            curve: Curves.easeIn,
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.all(12.0),
+                                          fixedSize: Size(48, 48),
+                                          backgroundColor:
+                                              secondaryLightBackgroundColor,
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(14)),
+                                        ),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/caret-line-left.svg",
+                                          height: 24,
+                                          width: 24,
+                                          color: primaryColor,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: SvgPicture.asset(
-                                    "assets/icons/caret-line-left.svg",
-                                    height: 24,
-                                    width: 24,
-                                    color: primaryColor,
+                                  Visibility(
+                                    visible: (_currentPage == 0 ||
+                                        _currentPage == 1),
+                                    child: SizedBox(
+                                      width: 48,
+                                      height: 48,
+                                      child: ElevatedButton(
+                                        onPressed: () {
+                                          _currentPage < 2 ? _currentPage++ : 2;
+                                          _pageController.animateToPage(
+                                            _currentPage,
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            curve: Curves.easeIn,
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.all(12.0),
+                                          fixedSize: Size(48, 48),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(14)),
+                                        ),
+                                        child: SvgPicture.asset(
+                                          "assets/icons/caret-line-right.svg",
+                                          height: 24,
+                                          width: 24,
+                                          color: primaryLightBackgroundColor,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                              Expanded(child: Container()),
-                              SizedBox(
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.all(12.0),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.center,
+                                children: [
+                                  Visibility(
+                                    visible: (_currentPage == 2),
+                                    child: SizedBox(
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        style: ElevatedButton.styleFrom(
+                                          padding: EdgeInsets.all(12.0),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(14)),
+                                        ),
+                                        child: Text(
+                                          "Mulai Menjelajah",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineMedium!
+                                              .copyWith(
+                                                  color:
+                                                      primaryLightBackgroundColor),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                  child: Text(
-                                    "Mulai Menjelajah",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineMedium!
-                                        .copyWith(
-                                            color: primaryLightBackgroundColor),
-                                  ),
-                                ),
-                              ),
-                              Expanded(child: Container()),
-                              SizedBox(
-                                width: 48,
-                                height: 48,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    _currentPage < 2 ? _currentPage++ : 2;
-                                    _pageController.animateToPage(
-                                      _currentPage,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.easeIn,
-                                    );
-                                    setState(() {
-                                      _lineIndicatorController();
-                                    });
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.all(12.0),
-                                    fixedSize: Size(48, 48),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(14)),
-                                  ),
-                                  child: SvgPicture.asset(
-                                    "assets/icons/caret-line-right.svg",
-                                    height: 24,
-                                    width: 24,
-                                    color: primaryLightBackgroundColor,
-                                  ),
-                                ),
+                                ],
                               ),
                             ],
                           ),
@@ -284,7 +326,9 @@ class _LandingPageState extends State<LandingPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4)),
-                                    color: _currentPage == 0 ? primaryColor : darkGreyColor),
+                                    color: _currentPage == 0
+                                        ? primaryColor
+                                        : darkGreyColor),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -295,7 +339,9 @@ class _LandingPageState extends State<LandingPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4)),
-                                    color: _currentPage == 1 ? primaryColor : darkGreyColor),
+                                    color: _currentPage == 1
+                                        ? primaryColor
+                                        : darkGreyColor),
                               ),
                               const SizedBox(
                                 width: 4,
@@ -306,7 +352,9 @@ class _LandingPageState extends State<LandingPage> {
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(4)),
-                                    color: _currentPage == 2 ? primaryColor : darkGreyColor),
+                                    color: _currentPage == 2
+                                        ? primaryColor
+                                        : darkGreyColor),
                               ),
                             ],
                           ),
