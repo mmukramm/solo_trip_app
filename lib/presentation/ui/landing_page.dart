@@ -63,53 +63,6 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    List contentText = [
-      {
-        "firstText": "Selamat Datang Di",
-        "firstTextStyle": Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: darkGreyColor,
-            ),
-        "secondText": "Solo Trip App",
-        "secondTextStyle": Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: primaryColor,
-            ),
-        "thirdText": "Pilih negara-negara destinasi wisata kamu.",
-        "thirdTextStyle": Theme.of(context).textTheme.bodyMedium!.copyWith(
-              color: darkGreyColor,
-            ),
-      },
-      {
-        "firstText": "",
-        "firstTextStyle": Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: primaryColor,
-            ),
-        "secondText":
-            "Pilih negara-negara pilihanmu kemudian simpan agar kamu tidak lupa.",
-        "secondTextStyle": Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(color: darkGreyColor),
-        "thirdText": "",
-        "thirdTextStyle": Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: darkGreyColor,
-            ),
-      },
-      {
-        "firstText": "",
-        "firstTextStyle": Theme.of(context).textTheme.bodyLarge!.copyWith(
-              color: darkGreyColor,
-            ),
-        "secondText": "Selamat Menjelajah",
-        "secondTextStyle": Theme.of(context).textTheme.displayLarge!.copyWith(
-              color: primaryColor,
-            ),
-        "thirdText": "",
-        "thirdTextStyle": Theme.of(context)
-            .textTheme
-            .bodyMedium!
-            .copyWith(color: darkGreyColor),
-      },
-    ];
     return SafeArea(
       child: Stack(
         children: [
@@ -191,17 +144,25 @@ class _LandingPageState extends State<LandingPage> {
                         const SizedBox(
                           height: 26,
                         ),
-                        LandingPageContent(
-                          firstText: contentText[_currentPage]["firstText"],
-                          firstTextStyle: contentText[_currentPage]
-                              ["firstTextStyle"],
-                          secondText: contentText[_currentPage]["secondText"],
-                          secondTextStyle: contentText[_currentPage]
-                              ["secondTextStyle"],
-                          thirdText: contentText[_currentPage]["thirdText"],
-                          thirdTextStyle: contentText[_currentPage]
-                              ["thirdTextStyle"],
-                        ),
+                        Stack(
+                          children: [
+                            AnimatedOpacity(
+                              opacity: (_currentPage == 0) ? 1 : 0,
+                              duration: const Duration(milliseconds: 500),
+                              child: FirstLandingPageContent(),
+                            ),
+                            AnimatedOpacity(
+                              opacity: (_currentPage == 1) ? 1 : 0,
+                              duration: const Duration(milliseconds: 500),
+                              child: SecondLandingPageContent(),
+                            ),
+                            AnimatedOpacity(
+                              opacity: (_currentPage == 2) ? 1 : 0,
+                              duration: const Duration(milliseconds: 500),
+                              child: ThirdLandingPageContent(),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                     Padding(
@@ -284,8 +245,7 @@ class _LandingPageState extends State<LandingPage> {
                                 ],
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Visibility(
                                     visible: (_currentPage == 2),
