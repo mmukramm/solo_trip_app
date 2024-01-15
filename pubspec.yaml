@@ -83,6 +83,9 @@ flutter:
         - asset: assets/fonts/Montserrat-Regular.ttf
         - asset: assets/fonts/Montserrat-SemiBold.ttf
           weight: 500
+    - family: CustomIcon
+      fonts:
+        - asset: assets/fonts/CustomIcon.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
