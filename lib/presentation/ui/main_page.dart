@@ -34,7 +34,7 @@ class _MainPageState extends State<MainPage> {
               _currentIndexMenu = index;
             });
           },
-          items: <BottomNavigationBarItem>[
+          items: [
             BottomNavigationBarItem(
               icon: Column(
                 children: [
@@ -42,28 +42,90 @@ class _MainPageState extends State<MainPage> {
                     height: 2,
                     width: 37,
                     decoration: BoxDecoration(
-                      color: _currentIndexMenu == 0 ? primaryLightBackgroundColor : secondaryDarkBackgroundColor,
+                      color: _currentIndexMenu == 0
+                          ? primaryLightBackgroundColor
+                          : secondaryDarkBackgroundColor,
                     ),
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 12,
                   ),
                   Icon(CustomIcon.homeLine),
+                  const SizedBox(
+                    height: 4,
+                  ),
                 ],
               ),
               label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(CustomIcon.flagLine),
-              label: "Country List",
+              icon: Column(
+                children: [
+                  Container(
+                    height: 2,
+                    width: 37,
+                    decoration: BoxDecoration(
+                      color: _currentIndexMenu == 1
+                          ? primaryLightBackgroundColor
+                          : secondaryDarkBackgroundColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Icon(CustomIcon.flagLine),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                ],
+              ),
+              label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(CustomIcon.heartLine),
-              label: "Favorite",
+              icon: Column(
+                children: [
+                  Container(
+                    height: 2,
+                    width: 37,
+                    decoration: BoxDecoration(
+                      color: _currentIndexMenu == 2
+                          ? primaryLightBackgroundColor
+                          : secondaryDarkBackgroundColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Icon(CustomIcon.heartLine),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                ],
+              ),
+              label: "Home",
             ),
             BottomNavigationBarItem(
-              icon: Icon(CustomIcon.usersLine),
-              label: "Profile",
+              icon: Column(
+                children: [
+                  Container(
+                    height: 2,
+                    width: 37,
+                    decoration: BoxDecoration(
+                      color: _currentIndexMenu == 3
+                          ? primaryLightBackgroundColor
+                          : secondaryDarkBackgroundColor,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Icon(CustomIcon.userLine),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                ],
+              ),
+              label: "Home",
             ),
           ]),
     );
