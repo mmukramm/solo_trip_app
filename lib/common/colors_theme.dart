@@ -13,3 +13,9 @@ Color infoColor = const Color(0xFF44B4F4);
 Color warningColor = const Color(0xFFEDE32D);
 Color dangerColor = const Color(0xFFFF3C2B);
 
+LinearGradient primaryGradient = const LinearGradient(
+  colors: [Color(0xFF827EF5), Color(0xff534cff)],
+  stops: [0.25, 0.75],
+  begin: Alignment.topLeft,
+  end: Alignment.bottomRight,
+);
