@@ -28,7 +28,6 @@ class _LandingPageState extends State<LandingPage> {
   final PageController _pageController = PageController(initialPage: 0);
 
   void _lineIndicatorController() {
-    print(_currentPage);
     if (_currentPage == 0) {
       lineIndicatorAlignment = MainAxisAlignment.end;
       lineIndicatorBorderRadius = BorderRadius.only(

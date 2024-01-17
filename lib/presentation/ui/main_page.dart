@@ -4,6 +4,10 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/custom_icon.dart';
+import 'package:solo_trip_app/presentation/ui/country_list_screen.dart';
+import 'package:solo_trip_app/presentation/ui/favorite_country_screen.dart';
+import 'package:solo_trip_app/presentation/ui/home_screen.dart';
+import 'package:solo_trip_app/presentation/ui/profile_screen.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -13,14 +17,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  List pages = [
+    HomeScreen(),
+    CountryListScreen(),
+    FavoriteCountryScreen(),
+    ProfileScreen()
+  ];
+
   int _currentIndexMenu = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text("Main Page"),
-      ),
+      body: pages[_currentIndexMenu],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: primaryLightBackgroundColor,
           unselectedItemColor: darkGreyColor,
