@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -118,8 +120,87 @@ class HomeScreen extends StatelessWidget {
                                 .displayLarge!
                                 .copyWith(color: primaryLightBackgroundColor))
                       ]),
-                )
+                ),
               ],
+            ),
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
+            child: Text(
+              "Favorite",
+              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                    color: primaryColor,
+                  ),
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Container(
+            width: AppSize.deviceWidth(context),
+            height: 120,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: 6,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  margin: EdgeInsets.only(
+                    left: (index == 0) ? 32.0 : 4.0,
+                    right: (index == 5) ? 32.0 : 4.0,
+                  ),
+                  width: AppSize.deviceWidth(context) * .6,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/images/spain_backdrop.jpg",
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            gradient: primaryGradient,
+                            backgroundBlendMode: BlendMode.softLight),
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Center(
+                                child: Text(
+                                  "Spain",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge!
+                                      .copyWith(
+                                        color: primaryLightBackgroundColor,
+                                      ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 6,
+                              decoration:
+                                  BoxDecoration(gradient: primaryGradient),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
             ),
           )
         ],
