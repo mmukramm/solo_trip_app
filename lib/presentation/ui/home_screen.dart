@@ -23,30 +23,35 @@ class _HomeScreenState extends State<HomeScreen> {
     {
       "countryName" : "Spain",
       "population" : 47615034,
+      "isFavorite" : false,
       "region" : "Europe",
       "backdrop_image" : "spain_backdrop.jpg"
     },
     {
       "countryName" : "New Zealand",
       "population" : 5124100,
+      "isFavorite" : false,
       "region" : "Oceania",
       "backdrop_image" : "newzealand_backdrop.jpg"
     },
     {
       "countryName" : "Portugal",
       "population" : 10379007,
+      "isFavorite" : false,
       "region" : "Europe",
       "backdrop_image" : "portugal_backdrop.jpg"
     },
     {
       "countryName" : "Australia",
       "population" : 25978935,
+      "isFavorite" : false,
       "region" : "Oceania",
       "backdrop_image" : "sydney_backdrop.jpg"
     },
     {
       "countryName" : "Ireland",
       "population" : 5086988,
+      "isFavorite" : false,
       "region" : "Europe",
       "backdrop_image" : "ireland_backdrop.jpg"
     },
@@ -56,30 +61,35 @@ class _HomeScreenState extends State<HomeScreen> {
     {
       "countryName" : "Spain",
       "population" : 47615034,
+      "isFavorite" : true,
       "region" : "Europe",
       "backdrop_image" : "spain_backdrop.jpg"
     },
     {
       "countryName" : "New Zealand",
       "population" : 5124100,
+      "isFavorite" : true,
       "region" : "Oceania",
       "backdrop_image" : "newzealand_backdrop.jpg"
     },
     {
       "countryName" : "Portugal",
       "population" : 10379007,
+      "isFavorite" : true,
       "region" : "Europe",
       "backdrop_image" : "portugal_backdrop.jpg"
     },
     {
       "countryName" : "Australia",
       "population" : 25978935,
+      "isFavorite" : true,
       "region" : "Oceania",
       "backdrop_image" : "sydney_backdrop.jpg"
     },
     {
       "countryName" : "Ireland",
       "population" : 5086988,
+      "isFavorite" : true,
       "region" : "Europe",
       "backdrop_image" : "ireland_backdrop.jpg"
     },
@@ -93,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding: const EdgeInsets.only(right: 32, left: 32, top: 36),
+              padding: const EdgeInsets.all(32.0),
               height: AppSize.deviceHeight(context) * .28,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.vertical(
@@ -134,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         child: Row(
                           children: [
-                            Container(
+                            SizedBox(
                               height: 20,
                               child: Image.asset(
                                 "assets/images/Logo.png",

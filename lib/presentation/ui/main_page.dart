@@ -88,7 +88,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              label: "Home",
+              label: "Country List",
             ),
             BottomNavigationBarItem(
               icon: Column(
@@ -111,7 +111,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              label: "Home",
+              label: "Favorite",
             ),
             BottomNavigationBarItem(
               icon: Column(
@@ -134,7 +134,7 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ],
               ),
-              label: "Home",
+              label: "Profile",
             ),
           ]),
     );
