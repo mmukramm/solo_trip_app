@@ -4,6 +4,7 @@ import 'package:solo_trip_app/common/text_theme.dart';
 import 'package:solo_trip_app/presentation/ui/country_detail.dart';
 import 'package:solo_trip_app/presentation/ui/landing_page.dart';
 import 'package:solo_trip_app/presentation/ui/main_page.dart';
+import 'package:solo_trip_app/presentation/ui/splash_screen.dart';
 
 void main() {
   runApp(const SoloTripApp());
@@ -32,7 +33,7 @@ class SoloTripApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: primaryLightBackgroundColor
       ),
-      home: const CountryDetail(),
+      home: const SplashScreen(),
     );
   }
 }
