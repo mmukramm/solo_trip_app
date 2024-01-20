@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/common/text_theme.dart';
+import 'package:solo_trip_app/presentation/ui/country_detail.dart';
 import 'package:solo_trip_app/presentation/ui/landing_page.dart';
 import 'package:solo_trip_app/presentation/ui/main_page.dart';
 
@@ -31,7 +32,7 @@ class SoloTripApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: primaryLightBackgroundColor
       ),
-      home: const MainPage(),
+      home: const CountryDetail(),
     );
   }
 }
