@@ -33,7 +33,7 @@ class SoloTripApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: primaryLightBackgroundColor
       ),
-      home: const SplashScreen(),
+      home: const MainPage(),
     );
   }
 }

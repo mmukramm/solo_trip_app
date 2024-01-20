@@ -1,13 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/common/text_theme.dart';
 import 'package:solo_trip_app/custom_icon.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
 
 class CountryDetail extends StatelessWidget {
-  const CountryDetail({super.key});
+  final Map country;
+  const CountryDetail({
+    Key? key,
+    required this.country,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +46,9 @@ class CountryDetail extends StatelessWidget {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: Center(
                         child: Icon(
                           CustomIcon.caretLineLeft,
@@ -90,13 +98,13 @@ class CountryDetail extends StatelessWidget {
               left: 0,
               right: 0,
               child: Hero(
-                tag: "",
+                tag: country["backdrop_image"],
                 child: Container(
                   height: AppSize.deviceHeight(context) * .3,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     image: DecorationImage(
-                        image:
-                            AssetImage("assets/images/indonesia_backdrop.jpg"),
+                        image: AssetImage(
+                            "assets/images/${country["backdrop_image"]}"),
                         fit: BoxFit.cover),
                   ),
                   child: Container(
