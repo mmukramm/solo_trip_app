@@ -9,25 +9,25 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(32.0),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.vertical(
-                bottom: Radius.circular(20.0),
-              ),
-              gradient: primaryGradient,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(.2),
-                  blurRadius: 4,
-                  offset: const Offset(0, 4),
-                ),
-              ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(32.0),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(
+              bottom: Radius.circular(20.0),
             ),
+            gradient: primaryGradient,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(.2),
+                blurRadius: 4,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -65,48 +65,48 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(
-            height: 24.0,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32.0),
-            child: SizedBox(
-              child: ElevatedButton(
-                onPressed: () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (context) => const LandingPage(),
+        ),
+        const SizedBox(
+          height: 24.0,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
+          child: SizedBox(
+            child: ElevatedButton(
+              onPressed: () => Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const LandingPage(),
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12.0),
+                backgroundColor: dangerColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Logout",
+                    style: Theme.of(context).textTheme.displaySmall!.copyWith(
+                          color: primaryLightBackgroundColor,
+                        ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12.0),
-                  backgroundColor: dangerColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                  const SizedBox(
+                    width: 8.0,
                   ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Logout",
-                      style: Theme.of(context).textTheme.displaySmall!.copyWith(
-                            color: primaryLightBackgroundColor,
-                          ),
-                    ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
-                    Icon(
-                      CustomIcon.logoutLine,
-                      color: primaryLightBackgroundColor,
-                    ),
-                  ],
-                ),
+                  Icon(
+                    CustomIcon.logoutLine,
+                    color: primaryLightBackgroundColor,
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -2,97 +2,24 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
-import 'package:solo_trip_app/custom_icon.dart';
+import 'package:solo_trip_app/data/data_source/all_country_data.dart';
+import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
-import 'package:solo_trip_app/helpers/formatter.dart';
 import 'package:solo_trip_app/presentation/ui/country_detail.dart';
+import 'package:solo_trip_app/presentation/widget/country_card.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List topCountryList = [
-    {
-      "countryName": "Spain",
-      "population": 47615034,
-      "isFavorite": false,
-      "region": "Europe",
-      "backdrop_image": "spain_backdrop.jpg"
-    },
-    {
-      "countryName": "New Zealand",
-      "population": 5124100,
-      "isFavorite": false,
-      "region": "Oceania",
-      "backdrop_image": "newzealand_backdrop.jpg"
-    },
-    {
-      "countryName": "Portugal",
-      "population": 10379007,
-      "isFavorite": false,
-      "region": "Europe",
-      "backdrop_image": "portugal_backdrop.jpg"
-    },
-    {
-      "countryName": "Australia",
-      "population": 25978935,
-      "isFavorite": false,
-      "region": "Oceania",
-      "backdrop_image": "sydney_backdrop.jpg"
-    },
-    {
-      "countryName": "Ireland",
-      "population": 5086988,
-      "isFavorite": false,
-      "region": "Europe",
-      "backdrop_image": "ireland_backdrop.jpg"
-    },
-  ];
-
-  List favCountryList = [
-    {
-      "countryName": "Spain",
-      "population": 47615034,
-      "isFavorite": true,
-      "region": "Europe",
-      "backdrop_image": "spain_backdrop.jpg"
-    },
-    {
-      "countryName": "New Zealand",
-      "population": 5124100,
-      "isFavorite": true,
-      "region": "Oceania",
-      "backdrop_image": "newzealand_backdrop.jpg"
-    },
-    {
-      "countryName": "Portugal",
-      "population": 10379007,
-      "isFavorite": true,
-      "region": "Europe",
-      "backdrop_image": "portugal_backdrop.jpg"
-    },
-    {
-      "countryName": "Australia",
-      "population": 25978935,
-      "isFavorite": true,
-      "region": "Oceania",
-      "backdrop_image": "sydney_backdrop.jpg"
-    },
-    {
-      "countryName": "Ireland",
-      "population": 5086988,
-      "isFavorite": true,
-      "region": "Europe",
-      "backdrop_image": "ireland_backdrop.jpg"
-    },
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final List<Country> topCountryList = countryList;
+
+    final List<Country> favCountryList = [
+      countryList[0],
+      countryList[1],
+      countryList[2],
+    ];
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -223,70 +150,77 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SizedBox(
             width: AppSize.deviceWidth(context),
-            height: 120,
+            height: 110,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: favCountryList.length,
               itemBuilder: (BuildContext context, int index) {
+                String imageHeroTag =
+                    "${favCountryList[index].backdropImage} isFavorite";
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => CountryDetail(
+                          imageHeroTag: imageHeroTag,
                           country: favCountryList[index],
                         ),
                       ),
                     );
                   },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                      left: (index == 0) ? 32.0 : 4.0,
-                      right: (index == favCountryList.length - 1) ? 32.0 : 4.0,
-                    ),
-                    width: AppSize.deviceWidth(context) * .6,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          "assets/images/${favCountryList[index]["backdrop_image"]}",
+                  child: Hero(
+                    tag: imageHeroTag,
+                    child: Container(
+                      margin: EdgeInsets.only(
+                        left: (index == 0) ? 32.0 : 4.0,
+                        right:
+                            (index == favCountryList.length - 1) ? 32.0 : 4.0,
+                      ),
+                      width: AppSize.deviceWidth(context) * .6,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/images/${favCountryList[index].backdropImage}",
+                          ),
+                          fit: BoxFit.cover,
                         ),
-                        fit: BoxFit.cover,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
                       ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(12),
-                      ),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              gradient: primaryGradient,
-                              backgroundBlendMode: BlendMode.softLight),
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Center(
-                                  child: Text(
-                                    favCountryList[index]["countryName"],
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyLarge!
-                                        .copyWith(
-                                          color: primaryLightBackgroundColor,
-                                        ),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                gradient: primaryGradient,
+                                backgroundBlendMode: BlendMode.softLight),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  child: Center(
+                                    child: Text(
+                                      favCountryList[index].countryName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .copyWith(
+                                            color: primaryLightBackgroundColor,
+                                          ),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                height: 6,
-                                decoration:
-                                    BoxDecoration(gradient: primaryGradient),
-                              ),
-                            ],
+                                Container(
+                                  height: 6,
+                                  decoration:
+                                      BoxDecoration(gradient: primaryGradient),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -318,157 +252,13 @@ class _HomeScreenState extends State<HomeScreen> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: EdgeInsets.zero,
-              itemCount: topCountryList.length,
+              itemCount: 5,
               itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => CountryDetail(
-                          country: topCountryList[index],
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(
-                        bottom:
-                            (index == topCountryList.length - 1) ? 12.0 : 4.0),
-                    height: AppSize.deviceHeight(context) * .1,
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(12.0),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                            offset: const Offset(4.0, 4.0),
-                            blurRadius: 4.0,
-                            color: Colors.black.withOpacity(.15)),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 6,
-                          child: Hero(
-                            tag: topCountryList[index]["backdrop_image"],
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/${topCountryList[index]["backdrop_image"]}"),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(12.0),
-                                ),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.horizontal(
-                                  left: Radius.circular(12.0),
-                                ),
-                                child: BackdropFilter(
-                                  filter: ImageFilter.blur(
-                                      sigmaX: 1.2, sigmaY: 1.2),
-                                  child: Container(
-                                    width: double.maxFinite,
-                                    height: double.maxFinite,
-                                    decoration: BoxDecoration(
-                                      gradient: primaryGradient,
-                                      backgroundBlendMode: BlendMode.softLight,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 24.0,
-                                          ),
-                                          child: Text(
-                                            topCountryList[index]
-                                                ["countryName"],
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleLarge!
-                                                .copyWith(
-                                                  color:
-                                                      primaryLightBackgroundColor,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 5,
-                          child: Container(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 12.0),
-                            decoration: BoxDecoration(
-                              color: secondaryLightBackgroundColor,
-                              borderRadius: const BorderRadius.horizontal(
-                                right: Radius.circular(12.0),
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(CustomIcon.usersSolid,
-                                        color: secondaryDarkBackgroundColor,
-                                        size: 20.0),
-                                    const SizedBox(
-                                      width: 8.0,
-                                    ),
-                                    Text(
-                                      Formatter.populationFormatter(
-                                          topCountryList[index]["population"]),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: secondaryDarkBackgroundColor,
-                                          ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Row(
-                                  children: [
-                                    Icon(CustomIcon.poland,
-                                        color: secondaryDarkBackgroundColor,
-                                        size: 20.0),
-                                    const SizedBox(
-                                      width: 8.0,
-                                    ),
-                                    Text(
-                                      topCountryList[index]["region"],
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                            color: secondaryDarkBackgroundColor,
-                                          ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: CountryCard(
+                    country: topCountryList[index],
+                    index: index,
                   ),
                 );
               },
