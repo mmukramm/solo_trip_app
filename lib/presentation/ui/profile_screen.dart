@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/custom_icon.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
+import 'package:solo_trip_app/presentation/ui/landing_page.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -74,25 +72,33 @@ class ProfileScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: SizedBox(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (context) => const LandingPage(),
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(12.0),
                   backgroundColor: dangerColor,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14)),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(CustomIcon.logoutLine),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
                     Text(
                       "Logout",
                       style: Theme.of(context).textTheme.displaySmall!.copyWith(
                             color: primaryLightBackgroundColor,
                           ),
+                    ),
+                    const SizedBox(
+                      width: 8.0,
+                    ),
+                    Icon(
+                      CustomIcon.logoutLine,
+                      color: primaryLightBackgroundColor,
                     ),
                   ],
                 ),

@@ -1,8 +1,7 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
+import 'package:solo_trip_app/presentation/ui/main_page.dart';
 import 'package:solo_trip_app/presentation/widget/landing_page_content.dart';
 
 class LandingPage extends StatefulWidget {
@@ -30,19 +29,24 @@ class _LandingPageState extends State<LandingPage> {
   void _lineIndicatorController() {
     if (_currentPage == 0) {
       lineIndicatorAlignment = MainAxisAlignment.end;
-      lineIndicatorBorderRadius = BorderRadius.only(
-          topRight: Radius.circular(20.0), bottomLeft: Radius.circular(20.0));
+      lineIndicatorBorderRadius = const BorderRadius.only(
+        topRight: Radius.circular(20.0),
+        bottomLeft: Radius.circular(20.0),
+      );
     }
 
     if (_currentPage == 1) {
-      lineIndicatorBorderRadius =
-          BorderRadius.vertical(top: Radius.circular(20));
+      lineIndicatorBorderRadius = const BorderRadius.vertical(
+        top: Radius.circular(20),
+      );
     }
 
     if (_currentPage == 2) {
       lineIndicatorAlignment = MainAxisAlignment.start;
-      lineIndicatorBorderRadius = BorderRadius.only(
-          topLeft: Radius.circular(20.0), bottomRight: Radius.circular(20.0));
+      lineIndicatorBorderRadius = const BorderRadius.only(
+        topLeft: Radius.circular(20.0),
+        bottomRight: Radius.circular(20.0),
+      );
     }
   }
 
@@ -66,6 +70,7 @@ class _LandingPageState extends State<LandingPage> {
       child: Stack(
         children: [
           PageView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             controller: _pageController,
             itemCount: landingPageImage.length,
             onPageChanged: (index) {
@@ -236,7 +241,7 @@ class _LandingPageState extends State<LandingPage> {
                                           "assets/icons/caret-line-right.svg",
                                           height: 24,
                                           width: 24,
-                                          color: primaryLightBackgroundColor,
+                                          color: primaryColor,
                                         ),
                                       ),
                                     ),
@@ -250,12 +255,19 @@ class _LandingPageState extends State<LandingPage> {
                                     visible: (_currentPage == 2),
                                     child: SizedBox(
                                       child: ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () => Navigator.of(context)
+                                            .pushReplacement(
+                                          MaterialPageRoute(
+                                            builder: (context) => MainPage(),
+                                          ),
+                                        ),
                                         style: ElevatedButton.styleFrom(
                                           padding: EdgeInsets.all(12.0),
+                                          backgroundColor: primaryColor,
                                           shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(14)),
+                                            borderRadius:
+                                                BorderRadius.circular(14),
+                                          ),
                                         ),
                                         child: Text(
                                           "Mulai Menjelajah",

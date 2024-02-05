@@ -1,16 +1,6 @@
-import 'package:solo_trip_app/data/models/Country.dart';
+import 'package:solo_trip_app/data/models/country.dart';
 
 List<Country> countryList = [
-  Country(
-    countryName: "Spain",
-    flag: "esp.png",
-    population: 47615034,
-    region: "Europe",
-    backdropImage: "spain_backdrop.jpg",
-    capital: "Madrid",
-    overview:
-        "A number of independent kingdoms united in 1492 to form the Kingdom of Spain, a cultural patchwork that continues to shape the modern nation’s dynamic identity. Spain comprises much of the Iberian Peninsula, which it shares with Portugal on the southwestern edge of Europe. It also includes the Balearic Islands in the Mediterranean Sea, the Canary Islands in the Atlantic Ocean and two enclaves in North Africa.",
-  ),
   Country(
     countryName: "Spain",
     flag: "esp.png",

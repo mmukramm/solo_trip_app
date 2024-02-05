@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/custom_icon.dart';
 import 'package:solo_trip_app/presentation/ui/country_list_screen.dart';
@@ -18,10 +15,10 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List pages = [
-    HomeScreen(),
-    CountryListScreen(),
-    FavoriteCountryScreen(),
-    ProfileScreen()
+    const HomeScreen(),
+    const CountryListScreen(),
+    const FavoriteCountryScreen(),
+    const ProfileScreen()
   ];
 
   int _currentIndexMenu = 0;
@@ -30,7 +27,12 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[_currentIndexMenu],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: Theme(
+        data: ThemeData(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: BottomNavigationBar(
           selectedItemColor: primaryLightBackgroundColor,
           unselectedItemColor: darkGreyColor,
           backgroundColor: secondaryDarkBackgroundColor,
@@ -59,7 +61,7 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Icon(CustomIcon.homeLine),
+                  const Icon(CustomIcon.homeLine),
                   const SizedBox(
                     height: 4,
                   ),
@@ -82,7 +84,7 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Icon(CustomIcon.flagLine),
+                  const Icon(CustomIcon.flagLine),
                   const SizedBox(
                     height: 4,
                   ),
@@ -105,7 +107,7 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Icon(CustomIcon.heartLine),
+                  const Icon(CustomIcon.heartLine),
                   const SizedBox(
                     height: 4,
                   ),
@@ -128,7 +130,7 @@ class _MainPageState extends State<MainPage> {
                   const SizedBox(
                     height: 12,
                   ),
-                  Icon(CustomIcon.userLine),
+                  const Icon(CustomIcon.userLine),
                   const SizedBox(
                     height: 4,
                   ),
@@ -136,7 +138,9 @@ class _MainPageState extends State<MainPage> {
               ),
               label: "Profile",
             ),
-          ]),
+          ],
+        ),
+      ),
     );
   }
 }

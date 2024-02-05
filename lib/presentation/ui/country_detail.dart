@@ -1,15 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/common/text_theme.dart';
 import 'package:solo_trip_app/custom_icon.dart';
+import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
 
 class CountryDetail extends StatelessWidget {
-  final Map country;
+  final Country country;
   const CountryDetail({
     Key? key,
     required this.country,
@@ -98,13 +95,13 @@ class CountryDetail extends StatelessWidget {
               left: 0,
               right: 0,
               child: Hero(
-                tag: country["backdrop_image"],
+                tag: country.backdropImage,
                 child: Container(
                   height: AppSize.deviceHeight(context) * .3,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                            "assets/images/${country["backdrop_image"]}"),
+                            "assets/images/${country.backdropImage}"),
                         fit: BoxFit.cover),
                   ),
                   child: Container(
@@ -156,7 +153,8 @@ class CountryDetail extends StatelessWidget {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12.0),
-                                  child: Image.asset("assets/flags/idn.png"),
+                                  child: Image.asset(
+                                      "assets/flags/${country.flag}"),
                                 ),
                               ),
                             ],
@@ -181,7 +179,7 @@ class CountryDetail extends StatelessWidget {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      "1.000.000",
+                                      country.population.toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -202,7 +200,7 @@ class CountryDetail extends StatelessWidget {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      "Jakarta",
+                                      country.capital,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -223,7 +221,7 @@ class CountryDetail extends StatelessWidget {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      "Pacific",
+                                      country.region,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -256,8 +254,7 @@ class CountryDetail extends StatelessWidget {
                                                     primaryDarkBackgroundColor),
                                       ),
                                       TextSpan(
-                                        text:
-                                            "A number of independent kingdoms united in 1492 to form the Kingdom of Spain, a cultural patchwork that continues to shape the modern nation’s dynamic identity. Spain comprises much of the Iberian Peninsula, which it shares with Portugal on the southwestern edge of Europe. It also includes the Balearic Islands in the Mediterranean Sea, the Canary Islands in the Atlantic Ocean and two enclaves in North Africa. A number of independent kingdoms united in 1492 to form the Kingdom of Spain, a cultural patchwork that continues to shape the modern nation’s dynamic identity. Spain comprises much of the Iberian Peninsula, which it shares with Portugal on the southwestern edge of Europe. It also includes the Balearic Islands in the Mediterranean Sea, the Canary Islands in the Atlantic Ocean and two enclaves in North Africa.",
+                                        text: country.overview,
                                         style: textTheme.bodySmall!.copyWith(
                                             color: primaryDarkBackgroundColor),
                                       ),
