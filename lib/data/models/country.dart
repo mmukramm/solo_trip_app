@@ -1,13 +1,13 @@
 class Country {
-  String countryName;
-  String flag;
-  int population;
-  String region;
-  String backdropImage;
-  String capital;
-  String overview;
+  final String countryName;
+  final String flag;
+  final int population;
+  final String region;
+  final String backdropImage;
+  final String capital;
+  final String overview;
 
-  Country({
+  const Country({
     required this.countryName,
     required this.flag,
     required this.population,

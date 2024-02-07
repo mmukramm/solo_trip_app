@@ -1,17 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/common/text_theme.dart';
 import 'package:solo_trip_app/custom_icon.dart';
 import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
+import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
 
-class CountryDetail extends StatelessWidget {
+class CountryDetail extends StatefulWidget {
   final Country country;
   final String imageHeroTag;
   const CountryDetail({
     Key? key,
-    required this.country, required this.imageHeroTag,
+    required this.country,
+    required this.imageHeroTag,
   }) : super(key: key);
+
+  @override
+  State<CountryDetail> createState() => _CountryDetailState();
+}
+
+class _CountryDetailState extends State<CountryDetail> {
+  late final ValueNotifier<bool> isFavorite;
+
+  @override
+  void initState() {
+    isFavorite = ValueNotifier(context
+        .read<FavoriteCountryProvider>()
+        .favouriteCountries
+        .contains(widget.country));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isFavorite.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,26 +88,45 @@ class CountryDetail extends StatelessWidget {
                         .displayMedium!
                         .copyWith(color: primaryLightBackgroundColor),
                   ),
-                  SizedBox(
-                    height: 48.0,
-                    width: 48.0,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(0),
-                        backgroundColor: secondaryLightBackgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
+                  ValueListenableBuilder(
+                    valueListenable: isFavorite,
+                    builder: (context, value, child) {
+                      return SizedBox(
+                        height: 48.0,
+                        width: 48.0,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(0),
+                            backgroundColor: secondaryLightBackgroundColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(16.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            !value
+                                ? context
+                                    .read<FavoriteCountryProvider>()
+                                    .addToFavorite(widget.country)
+                                : context
+                                    .read<FavoriteCountryProvider>()
+                                    .removeFromFavorite(widget.country);
+                            isFavorite.value = context
+                                .read<FavoriteCountryProvider>()
+                                .favouriteCountries
+                                .contains(widget.country);
+                          },
+                          child: Center(
+                            child: Icon(
+                              value
+                                  ? CustomIcon.heartSolid
+                                  : CustomIcon.heartLine,
+                              color: primaryColor,
+                              size: 28.0,
+                            ),
+                          ),
                         ),
-                      ),
-                      onPressed: () {},
-                      child: Center(
-                        child: Icon(
-                          CustomIcon.heartLine,
-                          color: primaryColor,
-                          size: 28.0,
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -96,13 +140,13 @@ class CountryDetail extends StatelessWidget {
               left: 0,
               right: 0,
               child: Hero(
-                tag: imageHeroTag,
+                tag: widget.imageHeroTag,
                 child: Container(
                   height: AppSize.deviceHeight(context) * .3,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                            "assets/images/${country.backdropImage}"),
+                            "assets/images/${widget.country.backdropImage}"),
                         fit: BoxFit.cover),
                   ),
                   child: Container(
@@ -155,7 +199,7 @@ class CountryDetail extends StatelessWidget {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12.0),
                                   child: Image.asset(
-                                      "assets/flags/${country.flag}"),
+                                      "assets/flags/${widget.country.flag}"),
                                 ),
                               ),
                             ],
@@ -180,7 +224,7 @@ class CountryDetail extends StatelessWidget {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      country.population.toString(),
+                                      widget.country.population.toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -201,7 +245,7 @@ class CountryDetail extends StatelessWidget {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      country.capital,
+                                      widget.country.capital,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -222,7 +266,7 @@ class CountryDetail extends StatelessWidget {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      country.region,
+                                      widget.country.region,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -255,7 +299,7 @@ class CountryDetail extends StatelessWidget {
                                                     primaryDarkBackgroundColor),
                                       ),
                                       TextSpan(
-                                        text: country.overview,
+                                        text: widget.country.overview,
                                         style: textTheme.bodySmall!.copyWith(
                                             color: primaryDarkBackgroundColor),
                                       ),

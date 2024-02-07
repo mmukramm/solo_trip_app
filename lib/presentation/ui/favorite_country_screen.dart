@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:solo_trip_app/data/data_source/all_country_data.dart';
-import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
 import 'package:solo_trip_app/presentation/widget/country_card.dart';
 import 'package:solo_trip_app/presentation/widget/small_page_header.dart';
@@ -11,10 +9,6 @@ class FavoriteCountryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // List<Country> countryItems = [
-    //   countryList[0],
-    //   countryList[1],
-    // ];
     return Column(
       children: [
         const SmallPageHeader(
