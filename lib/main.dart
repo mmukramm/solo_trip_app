@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/common/text_theme.dart';
+import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
 import 'package:solo_trip_app/presentation/ui/splash_screen.dart';
 
 void main() {
-  runApp(const SoloTripApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => FavoriteCountryProvider(),
+      child: const SoloTripApp(),
+    ),
+  );
 }
 
 class SoloTripApp extends StatelessWidget {
@@ -16,20 +23,18 @@ class SoloTripApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Solo Trip App",
       theme: ThemeData(
-        fontFamily: 'Montserrat',
-        textTheme: textTheme,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: primaryColor,
-          brightness: Brightness.light,
-          primary: primaryColor,
-          secondary: secondaryColor,
-          background: primaryLightBackgroundColor,
-          onBackground: primaryColor,
-          shadow: Colors.black,
-          error: dangerColor
-        ),
-        scaffoldBackgroundColor: primaryLightBackgroundColor
-      ),
+          fontFamily: 'Montserrat',
+          textTheme: textTheme,
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: primaryColor,
+              brightness: Brightness.light,
+              primary: primaryColor,
+              secondary: secondaryColor,
+              background: primaryLightBackgroundColor,
+              onBackground: primaryColor,
+              shadow: Colors.black,
+              error: dangerColor),
+          scaffoldBackgroundColor: primaryLightBackgroundColor),
       home: const SplashScreen(),
     );
   }

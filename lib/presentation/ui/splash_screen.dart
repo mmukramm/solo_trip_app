@@ -66,7 +66,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
-    // TODO: implement afterFirstLayout
     Timer(const Duration(seconds: 2), () {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const LandingPage()));

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solo_trip_app/data/data_source/all_country_data.dart';
 import 'package:solo_trip_app/data/models/country.dart';
+import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
 import 'package:solo_trip_app/presentation/widget/country_card.dart';
 import 'package:solo_trip_app/presentation/widget/small_page_header.dart';
 
@@ -9,10 +11,10 @@ class FavoriteCountryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Country> countryItems = [
-      countryList[0],
-      countryList[1],
-    ];
+    // List<Country> countryItems = [
+    //   countryList[0],
+    //   countryList[1],
+    // ];
     return Column(
       children: [
         const SmallPageHeader(
@@ -23,24 +25,28 @@ class FavoriteCountryScreen extends StatelessWidget {
         const SizedBox(
           height: 24.0,
         ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 32),
-          child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: countryItems.length,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: CountryCard(
-                  country: countryItems[index],
-                  index: index,
-                  isFavorite: true,
-                ),
-              );
-            },
-          ),
+        Consumer<FavoriteCountryProvider>(
+          builder: (BuildContext context, value, Widget? child) {
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 32),
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                itemCount: value.favouriteCountries.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: CountryCard(
+                      country: value.favouriteCountries[index],
+                      index: index,
+                      isFavorite: true,
+                    ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ],
     );

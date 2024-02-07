@@ -52,14 +52,12 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _lineIndicatorController();
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _lineIndicatorController();
     super.dispose();
   }
@@ -92,11 +90,11 @@ class _LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment(0, -.7),
                       end: Alignment(1, 1),
-                      colors: const <Color>[
+                      colors: <Color>[
                         Color(0x00FFFFFF),
                         Color(0xFFEEEDFF),
                       ],
@@ -113,7 +111,7 @@ class _LandingPageState extends State<LandingPage> {
               Container(
                 height: 320,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
+                    borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(20),
                     ),
                     boxShadow: const [
@@ -153,17 +151,17 @@ class _LandingPageState extends State<LandingPage> {
                             AnimatedOpacity(
                               opacity: (_currentPage == 0) ? 1 : 0,
                               duration: const Duration(milliseconds: 500),
-                              child: FirstLandingPageContent(),
+                              child: const FirstLandingPageContent(),
                             ),
                             AnimatedOpacity(
                               opacity: (_currentPage == 1) ? 1 : 0,
                               duration: const Duration(milliseconds: 500),
-                              child: SecondLandingPageContent(),
+                              child: const SecondLandingPageContent(),
                             ),
                             AnimatedOpacity(
                               opacity: (_currentPage == 2) ? 1 : 0,
                               duration: const Duration(milliseconds: 500),
-                              child: ThirdLandingPageContent(),
+                              child: const ThirdLandingPageContent(),
                             ),
                           ],
                         )
@@ -197,8 +195,8 @@ class _LandingPageState extends State<LandingPage> {
                                           );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          padding: EdgeInsets.all(12.0),
-                                          fixedSize: Size(48, 48),
+                                          padding: const EdgeInsets.all(12.0),
+                                          fixedSize: const Size(48, 48),
                                           backgroundColor:
                                               secondaryLightBackgroundColor,
                                           shape: RoundedRectangleBorder(
@@ -231,8 +229,8 @@ class _LandingPageState extends State<LandingPage> {
                                           );
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          padding: EdgeInsets.all(12.0),
-                                          fixedSize: Size(48, 48),
+                                          padding: const EdgeInsets.all(12.0),
+                                          fixedSize: const Size(48, 48),
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
                                                   BorderRadius.circular(14)),
@@ -258,11 +256,11 @@ class _LandingPageState extends State<LandingPage> {
                                         onPressed: () => Navigator.of(context)
                                             .pushReplacement(
                                           MaterialPageRoute(
-                                            builder: (context) => MainPage(),
+                                            builder: (context) => const MainPage(),
                                           ),
                                         ),
                                         style: ElevatedButton.styleFrom(
-                                          padding: EdgeInsets.all(12.0),
+                                          padding: const EdgeInsets.all(12.0),
                                           backgroundColor: primaryColor,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
@@ -295,8 +293,8 @@ class _LandingPageState extends State<LandingPage> {
                                 width: _currentPage == 0 ? 32 : 8,
                                 height: 8,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4)),
                                     color: _currentPage == 0
                                         ? primaryColor
                                         : darkGreyColor),
@@ -308,8 +306,8 @@ class _LandingPageState extends State<LandingPage> {
                                 width: _currentPage == 1 ? 32 : 8,
                                 height: 8,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4)),
                                     color: _currentPage == 1
                                         ? primaryColor
                                         : darkGreyColor),
@@ -321,8 +319,8 @@ class _LandingPageState extends State<LandingPage> {
                                 width: _currentPage == 2 ? 32 : 8,
                                 height: 8,
                                 decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(4)),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4)),
                                     color: _currentPage == 2
                                         ? primaryColor
                                         : darkGreyColor),
