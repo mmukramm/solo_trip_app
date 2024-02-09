@@ -7,7 +7,7 @@ import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
 import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
 
-class CountryDetail extends StatefulWidget {
+class CountryDetail extends StatelessWidget {
   final Country country;
   final String imageHeroTag;
   const CountryDetail({
@@ -15,28 +15,6 @@ class CountryDetail extends StatefulWidget {
     required this.country,
     required this.imageHeroTag,
   }) : super(key: key);
-
-  @override
-  State<CountryDetail> createState() => _CountryDetailState();
-}
-
-class _CountryDetailState extends State<CountryDetail> {
-  late final ValueNotifier<bool> isFavorite;
-
-  @override
-  void initState() {
-    isFavorite = ValueNotifier(context
-        .read<FavoriteCountryProvider>()
-        .favouriteCountries
-        .contains(widget.country));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    isFavorite.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +66,9 @@ class _CountryDetailState extends State<CountryDetail> {
                         .displayMedium!
                         .copyWith(color: primaryLightBackgroundColor),
                   ),
-                  ValueListenableBuilder(
-                    valueListenable: isFavorite,
+                  Consumer<FavoriteCountryProvider>(
                     builder: (context, value, child) {
+                      // value.favoriteChecker(country);
                       return SizedBox(
                         height: 48.0,
                         width: 48.0,
@@ -103,21 +81,13 @@ class _CountryDetailState extends State<CountryDetail> {
                             ),
                           ),
                           onPressed: () {
-                            !value
-                                ? context
-                                    .read<FavoriteCountryProvider>()
-                                    .addToFavorite(widget.country)
-                                : context
-                                    .read<FavoriteCountryProvider>()
-                                    .removeFromFavorite(widget.country);
-                            isFavorite.value = context
-                                .read<FavoriteCountryProvider>()
-                                .favouriteCountries
-                                .contains(widget.country);
+                            !value.favouriteCountries.contains(country)
+                                ? value.addToFavorite(country)
+                                : value.removeFromFavorite(country);
                           },
                           child: Center(
                             child: Icon(
-                              value
+                              value.favouriteCountries.contains(country)
                                   ? CustomIcon.heartSolid
                                   : CustomIcon.heartLine,
                               color: primaryColor,
@@ -140,13 +110,13 @@ class _CountryDetailState extends State<CountryDetail> {
               left: 0,
               right: 0,
               child: Hero(
-                tag: widget.imageHeroTag,
+                tag: imageHeroTag,
                 child: Container(
                   height: AppSize.deviceHeight(context) * .3,
                   decoration: BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage(
-                            "assets/images/${widget.country.backdropImage}"),
+                            "assets/images/${country.backdropImage}"),
                         fit: BoxFit.cover),
                   ),
                   child: Container(
@@ -199,7 +169,7 @@ class _CountryDetailState extends State<CountryDetail> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(12.0),
                                   child: Image.asset(
-                                      "assets/flags/${widget.country.flag}"),
+                                      "assets/flags/${country.flag}"),
                                 ),
                               ),
                             ],
@@ -224,7 +194,7 @@ class _CountryDetailState extends State<CountryDetail> {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      widget.country.population.toString(),
+                                      country.population.toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -245,7 +215,7 @@ class _CountryDetailState extends State<CountryDetail> {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      widget.country.capital,
+                                      country.capital,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -266,7 +236,7 @@ class _CountryDetailState extends State<CountryDetail> {
                                       height: 4.0,
                                     ),
                                     Text(
-                                      widget.country.region,
+                                      country.region,
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
@@ -299,7 +269,7 @@ class _CountryDetailState extends State<CountryDetail> {
                                                     primaryDarkBackgroundColor),
                                       ),
                                       TextSpan(
-                                        text: widget.country.overview,
+                                        text: country.overview,
                                         style: textTheme.bodySmall!.copyWith(
                                             color: primaryDarkBackgroundColor),
                                       ),
