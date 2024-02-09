@@ -3,12 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/common/text_theme.dart';
 import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
+import 'package:solo_trip_app/presentation/state/landing_page_provider.dart';
 import 'package:solo_trip_app/presentation/ui/splash_screen.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => FavoriteCountryProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => FavoriteCountryProvider()),
+        ChangeNotifierProvider(create: (context) => LandingPageProvider()),
+      ],
       child: const SoloTripApp(),
     ),
   );
