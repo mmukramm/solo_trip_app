@@ -144,12 +144,23 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          SizedBox(
-            width: AppSize.deviceWidth(context),
-            height: 110,
-            child: Consumer<FavoriteCountryProvider>(
-              builder: (BuildContext context, value, Widget? child) {
-                return ListView.builder(
+          Consumer<FavoriteCountryProvider>(
+            builder: (BuildContext context, value, Widget? child) {
+              if (value.favouriteCountries.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.only(left: 32),
+                  child: Text(
+                    "No Favorite Country",
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: darkGreyColor,
+                        ),
+                  ),
+                );
+              }
+              return SizedBox(
+                height: 110,
+                width: AppSize.deviceWidth(context),
+                child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: value.favouriteCountries.length,
@@ -172,9 +183,10 @@ class HomeScreen extends StatelessWidget {
                         child: Container(
                           margin: EdgeInsets.only(
                             left: (index == 0) ? 32.0 : 4.0,
-                            right: (index == value.favouriteCountries.length - 1)
-                                ? 32.0
-                                : 4.0,
+                            right:
+                                (index == value.favouriteCountries.length - 1)
+                                    ? 32.0
+                                    : 4.0,
                           ),
                           width: AppSize.deviceWidth(context) * .6,
                           decoration: BoxDecoration(
@@ -204,7 +216,8 @@ class HomeScreen extends StatelessWidget {
                                     Expanded(
                                       child: Center(
                                         child: Text(
-                                          value.favouriteCountries[index].countryName,
+                                          value.favouriteCountries[index]
+                                              .countryName,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -229,12 +242,12 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
           const SizedBox(
-            height: 24,
+            height: 32,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
