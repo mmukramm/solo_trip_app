@@ -6,13 +6,49 @@ import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/presentation/widget/country_card.dart';
 import 'package:solo_trip_app/presentation/widget/small_page_header.dart';
 
-class CountryListScreen extends StatelessWidget {
+class CountryListScreen extends StatefulWidget {
   const CountryListScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    List<Country> countryItems = List.from(countryList);
+  State<CountryListScreen> createState() => _CountryListScreenState();
+}
 
+class _CountryListScreenState extends State<CountryListScreen> {
+  late final ValueNotifier<String> searchText;
+  late List<Country> countryItems;
+
+  @override
+  void initState() {
+    super.initState();
+    searchText = ValueNotifier("");
+    countryItems = countryList;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchText.dispose();
+  }
+
+  void searchCountry() {
+    String text = searchText.value;
+    String textLowerCase = text.toLowerCase();
+
+    List<Country> searchedCountry = [];
+
+    countryList.map((e) {
+      if (e.countryName.toLowerCase().contains(textLowerCase)) {
+        searchedCountry.add(e);
+      }
+    }).toList();
+
+    setState(() {
+      countryItems = searchedCountry;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -28,8 +64,11 @@ class CountryListScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 32.0),
             child: CustomTextField(
-              onPressedSearchButton: () {
-                debugPrint("Search Button Clicked!!");
+              searchText: searchText,
+              onPressedSearchButton: searchCountry,
+              onPressedClearButton: () {
+                debugPrint("clear button pressed");
+                setState(() => countryItems = countryList);
               },
             ),
           ),
@@ -62,9 +101,14 @@ class CountryListScreen extends StatelessWidget {
 
 class CustomTextField extends StatefulWidget {
   final VoidCallback? onPressedSearchButton;
+  final VoidCallback onPressedClearButton;
+  final ValueNotifier<String> searchText;
+
   const CustomTextField({
     super.key,
     this.onPressedSearchButton,
+    required this.searchText,
+    required this.onPressedClearButton,
   });
 
   @override
@@ -117,6 +161,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         ? IconButton(
                             icon: const Icon(Icons.clear),
                             onPressed: () {
+                              widget.onPressedClearButton();
                               _searchController.clear();
                               isFilled.value = false;
                             },
@@ -135,6 +180,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   ),
                   onChanged: (value) {
                     isFilled.value = value == "" ? false : true;
+                    widget.searchText.value = value;
                   },
                 ),
               ),
