@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
+import 'package:solo_trip_app/presentation/state/theme_provider.dart';
 import 'package:solo_trip_app/presentation/widget/app_bar_container.dart';
 
 class SettingPage extends StatelessWidget {
@@ -28,12 +30,22 @@ class SettingPage extends StatelessWidget {
                   Text(
                     "Dark Mode",
                     style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-                          color: primaryDarkBackgroundColor,
+                          color: Theme.of(context).colorScheme.onBackground,
                         ),
                   ),
-                  Switch(
-                    value: false,
-                    onChanged: (value) {},
+                  Consumer<ThemeProvider>(
+                    builder: (context, value, child) {
+                      return Switch(
+                        value: value.isDarkMode,
+                        onChanged: (val) {
+                          value.changeThemeMode(val);
+                        },
+                        activeColor: secondaryColor,
+                        activeTrackColor: primaryColor,
+                        inactiveThumbColor: primaryColor,
+                        inactiveTrackColor: secondaryColor,
+                      );
+                    },
                   ),
                 ],
               ),

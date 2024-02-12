@@ -148,7 +148,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   controller: _searchController,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: secondaryLightBackgroundColor,
+                    fillColor: Theme.of(context).colorScheme.background,
                     hintText: "Search Country",
                     hintStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
                           color: darkGreyColor,
@@ -159,7 +159,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     ),
                     suffixIcon: value
                         ? IconButton(
-                            icon: const Icon(Icons.clear),
+                            icon: Icon(
+                              Icons.clear,
+                              color: Theme.of(context).colorScheme.onBackground,
+                            ),
                             onPressed: () {
                               widget.onPressedClearButton();
                               _searchController.clear();

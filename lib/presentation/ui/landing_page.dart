@@ -85,16 +85,17 @@ class _LandingPageState extends State<LandingPage> {
                   Container(
                     height: 320,
                     decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                        boxShadow: const [
-                          BoxShadow(
-                              offset: Offset(0, -6),
-                              blurRadius: 8,
-                              color: Color(0x13000000))
-                        ],
-                        color: primaryLightBackgroundColor),
+                      borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                      boxShadow: const [
+                        BoxShadow(
+                            offset: Offset(0, -6),
+                            blurRadius: 8,
+                            color: Color(0x13000000))
+                      ],
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -246,9 +247,9 @@ class _LandingPageState extends State<LandingPage> {
                                               ),
                                             ),
                                             style: ElevatedButton.styleFrom(
+                                              backgroundColor: Theme.of(context).primaryColor,
                                               padding:
                                                   const EdgeInsets.all(12.0),
-                                              backgroundColor: primaryColor,
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(14),
@@ -260,8 +261,9 @@ class _LandingPageState extends State<LandingPage> {
                                                   .textTheme
                                                   .headlineMedium!
                                                   .copyWith(
-                                                      color:
-                                                          primaryLightBackgroundColor),
+                                                    color: Theme.of(context)
+                                                        .colorScheme.secondary,
+                                                  ),
                                             ),
                                           ),
                                         ),

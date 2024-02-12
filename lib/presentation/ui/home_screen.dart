@@ -137,7 +137,7 @@ class HomeScreen extends StatelessWidget {
             child: Text(
               "Favorite",
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    color: primaryColor,
+                    color: Theme.of(context).primaryColor,
                   ),
             ),
           ),
@@ -254,7 +254,7 @@ class HomeScreen extends StatelessWidget {
             child: Text(
               "Top 5 Countries",
               style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    color: primaryColor,
+                    color: Theme.of(context).primaryColor,
                   ),
             ),
           ),

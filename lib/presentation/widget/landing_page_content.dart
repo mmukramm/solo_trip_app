@@ -23,7 +23,7 @@ class FirstLandingPageContent extends StatelessWidget {
           Text(
             "Solo Trip App",
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  color: primaryColor,
+                  color: Theme.of(context).primaryColor,
                 ),
           ),
           const SizedBox(
@@ -99,7 +99,7 @@ class ThirdLandingPageContent extends StatelessWidget {
           Text(
             "Selamat Menjelajah",
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                  color: primaryColor,
+                  color: Theme.of(context).primaryColor,
                 ),
           ),
           const SizedBox(

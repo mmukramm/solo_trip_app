@@ -106,7 +106,7 @@ class CountryCard extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 decoration: BoxDecoration(
-                  color: secondaryLightBackgroundColor,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: const BorderRadius.horizontal(
                     right: Radius.circular(12.0),
                   ),
@@ -117,7 +117,7 @@ class CountryCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(CustomIcon.usersSolid,
-                            color: secondaryDarkBackgroundColor, size: 20.0),
+                            color: Theme.of(context).colorScheme.onBackground, size: 20.0),
                         const SizedBox(
                           width: 8.0,
                         ),
@@ -125,7 +125,7 @@ class CountryCard extends StatelessWidget {
                           Formatter.populationFormatter(country.population),
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: secondaryDarkBackgroundColor,
+                                    color: Theme.of(context).colorScheme.onBackground,
                                   ),
                         )
                       ],
@@ -136,7 +136,7 @@ class CountryCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(CustomIcon.poland,
-                            color: secondaryDarkBackgroundColor, size: 20.0),
+                            color: Theme.of(context).colorScheme.onBackground, size: 20.0),
                         const SizedBox(
                           width: 8.0,
                         ),
@@ -144,7 +144,7 @@ class CountryCard extends StatelessWidget {
                           country.region,
                           style:
                               Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: secondaryDarkBackgroundColor,
+                                    color: Theme.of(context).colorScheme.onBackground,
                                   ),
                         )
                       ],

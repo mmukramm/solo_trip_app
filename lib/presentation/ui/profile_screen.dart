@@ -88,7 +88,10 @@ class ProfileScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(CustomIcon.usersLine),
+                      Icon(
+                        CustomIcon.usersLine,
+                        color: Theme.of(context).colorScheme.onBackground,
+                      ),
                       const SizedBox(
                         width: 12,
                       ),
@@ -98,7 +101,7 @@ class ProfileScreen extends StatelessWidget {
                             .textTheme
                             .headlineMedium!
                             .copyWith(
-                              color: primaryDarkBackgroundColor,
+                              color: Theme.of(context).colorScheme.onBackground,
                             ),
                       ),
                     ],
