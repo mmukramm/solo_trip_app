@@ -180,9 +180,9 @@ class _LandingPageState extends State<LandingPage> {
                                               backgroundColor:
                                                   secondaryLightBackgroundColor,
                                               shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          14)),
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                              ),
                                             ),
                                             child: SvgPicture.asset(
                                               "assets/icons/caret-line-left.svg",
@@ -216,9 +216,9 @@ class _LandingPageState extends State<LandingPage> {
                                                   const EdgeInsets.all(12.0),
                                               fixedSize: const Size(48, 48),
                                               shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          14)),
+                                                borderRadius:
+                                                    BorderRadius.circular(14),
+                                              ),
                                             ),
                                             child: SvgPicture.asset(
                                               "assets/icons/caret-line-right.svg",
@@ -247,7 +247,8 @@ class _LandingPageState extends State<LandingPage> {
                                               ),
                                             ),
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context).primaryColor,
+                                              backgroundColor: Theme.of(context)
+                                                  .primaryColor,
                                               padding:
                                                   const EdgeInsets.all(12.0),
                                               shape: RoundedRectangleBorder(
@@ -262,7 +263,8 @@ class _LandingPageState extends State<LandingPage> {
                                                   .headlineMedium!
                                                   .copyWith(
                                                     color: Theme.of(context)
-                                                        .colorScheme.secondary,
+                                                        .colorScheme
+                                                        .background,
                                                   ),
                                             ),
                                           ),

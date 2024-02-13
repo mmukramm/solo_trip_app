@@ -17,6 +17,20 @@ class CountryDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> entity = [
+      {
+        "icon": CustomIcon.usersSolid,
+        "value": country.population,
+      },
+      {
+        "icon": CustomIcon.buildingSolid,
+        "value": country.capital,
+      },
+      {
+        "icon": CustomIcon.poland,
+        "value": country.region,
+      }
+    ];
     return SafeArea(
       child: Scaffold(
         extendBodyBehindAppBar: true,
@@ -63,7 +77,7 @@ class CountryDetail extends StatelessWidget {
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(20.0),
                   ),
-                  color: primaryLightBackgroundColor,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                 ),
                 child: Stack(
                   clipBehavior: Clip.none,
@@ -107,71 +121,34 @@ class CountryDetail extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 32.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
+                              children: List<Column>.generate(
+                                entity.length,
+                                (index) => Column(
                                   children: [
                                     Icon(
-                                      CustomIcon.usersSolid,
+                                      entity[index]["icon"],
                                       size: 32.0,
-                                      color: secondaryDarkBackgroundColor,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface,
                                     ),
                                     const SizedBox(
                                       height: 4.0,
                                     ),
                                     Text(
-                                      country.population.toString(),
+                                      entity[index]["value"].toString(),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium!
                                           .copyWith(
-                                            color: secondaryDarkBackgroundColor,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface,
                                           ),
                                     ),
                                   ],
                                 ),
-                                Column(
-                                  children: [
-                                    Icon(
-                                      CustomIcon.buildingSolid,
-                                      size: 32.0,
-                                      color: secondaryDarkBackgroundColor,
-                                    ),
-                                    const SizedBox(
-                                      height: 4.0,
-                                    ),
-                                    Text(
-                                      country.capital,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                            color: secondaryDarkBackgroundColor,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    Icon(
-                                      CustomIcon.poland,
-                                      size: 32.0,
-                                      color: secondaryDarkBackgroundColor,
-                                    ),
-                                    const SizedBox(
-                                      height: 4.0,
-                                    ),
-                                    Text(
-                                      country.region,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                            color: secondaryDarkBackgroundColor,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                           const SizedBox(
@@ -190,13 +167,16 @@ class CountryDetail extends StatelessWidget {
                                         text: "Overview \n",
                                         style: textTheme.headlineMedium!
                                             .copyWith(
-                                                color:
-                                                    primaryDarkBackgroundColor),
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .onBackground),
                                       ),
                                       TextSpan(
                                         text: country.overview,
                                         style: textTheme.bodySmall!.copyWith(
-                                            color: primaryDarkBackgroundColor),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onBackground),
                                       ),
                                     ],
                                   ),

@@ -13,6 +13,7 @@ ThemeData lightTheme(BuildContext context) {
       secondary: secondaryColor,
       background: secondaryLightBackgroundColor,
       onBackground: primaryDarkBackgroundColor,
+      onSurface: secondaryDarkBackgroundColor,
       error: dangerColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -34,6 +35,7 @@ ThemeData darkTheme(BuildContext context) {
       secondary: primaryColor,
       background: secondaryDarkBackgroundColor,
       onBackground: primaryLightBackgroundColor,
+      onSurface: secondaryLightBackgroundColor,
       error: dangerColor,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

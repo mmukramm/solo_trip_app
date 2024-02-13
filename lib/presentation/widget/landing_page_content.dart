@@ -14,7 +14,7 @@ class FirstLandingPageContent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Selamat Datang Di",
+            "Welcome to",
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
@@ -29,7 +29,7 @@ class FirstLandingPageContent extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Text("Pilih negara-negara destinasi wisata kamu.",
+          Text("Select the country for your solo trip destination",
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                     color: darkGreyColor,
                   )),
@@ -58,7 +58,7 @@ class SecondLandingPageContent extends StatelessWidget {
                 ),
           ),
           Text(
-            "Pilih negara-negara pilihanmu kemudian simpan agar kamu tidak lupa.",
+            "Select the country and save it so you always remember your destination.",
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: darkGreyColor,
                 ),
@@ -97,7 +97,7 @@ class ThirdLandingPageContent extends StatelessWidget {
                 ),
           ),
           Text(
-            "Selamat Menjelajah",
+            "Happy Exploring",
             style: Theme.of(context).textTheme.displayLarge!.copyWith(
                   color: Theme.of(context).primaryColor,
                 ),

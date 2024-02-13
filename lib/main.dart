@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:solo_trip_app/common/colors_theme.dart';
-import 'package:solo_trip_app/common/text_theme.dart';
 import 'package:solo_trip_app/common/theme.dart';
 import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
 import 'package:solo_trip_app/presentation/state/landing_page_provider.dart';

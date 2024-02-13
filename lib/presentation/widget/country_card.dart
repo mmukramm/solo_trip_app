@@ -20,7 +20,8 @@ class CountryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageHeroTag = country.backdropImage + (isFavorite! ? " isFavorite" : "");
+    String imageHeroTag =
+        country.backdropImage + (isFavorite! ? " isFavorite" : "");
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
@@ -33,6 +34,7 @@ class CountryCard extends StatelessWidget {
         );
       },
       child: Container(
+        clipBehavior: Clip.antiAlias,
         height: 92,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(
@@ -107,9 +109,6 @@ class CountryCard extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.background,
-                  borderRadius: const BorderRadius.horizontal(
-                    right: Radius.circular(12.0),
-                  ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -117,16 +116,20 @@ class CountryCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(CustomIcon.usersSolid,
-                            color: Theme.of(context).colorScheme.onBackground, size: 20.0),
+                            color: Theme.of(context).colorScheme.onBackground,
+                            size: 20.0),
                         const SizedBox(
                           width: 8.0,
                         ),
                         Text(
                           Formatter.populationFormatter(country.population),
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Theme.of(context).colorScheme.onBackground,
-                                  ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onBackground,
+                              ),
                         )
                       ],
                     ),
@@ -136,22 +139,32 @@ class CountryCard extends StatelessWidget {
                     Row(
                       children: [
                         Icon(CustomIcon.poland,
-                            color: Theme.of(context).colorScheme.onBackground, size: 20.0),
+                            color: Theme.of(context).colorScheme.onBackground,
+                            size: 20.0),
                         const SizedBox(
                           width: 8.0,
                         ),
-                        Text(
-                          country.region,
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    color: Theme.of(context).colorScheme.onBackground,
-                                  ),
+                        Flexible(
+                          child: Text(
+                            country.region,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall!
+                                .copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onBackground,
+                                ),
+                          ),
                         )
                       ],
                     ),
                   ],
                 ),
               ),
+            ),
+            Container(
+              width: 6,
+              decoration: BoxDecoration(gradient: primaryGradient),
             )
           ],
         ),
