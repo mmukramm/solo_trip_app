@@ -1,13 +1,9 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:solo_trip_app/common/colors_theme.dart';
 import 'package:solo_trip_app/data/data_source/all_country_data.dart';
 import 'package:solo_trip_app/data/models/country.dart';
 import 'package:solo_trip_app/helpers/app_size.dart';
-import 'package:solo_trip_app/presentation/state/favorite_country_provider.dart';
-import 'package:solo_trip_app/presentation/ui/country_detail.dart';
 import 'package:solo_trip_app/presentation/widget/country_card.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -144,108 +140,108 @@ class HomeScreen extends StatelessWidget {
           const SizedBox(
             height: 16,
           ),
-          Consumer<FavoriteCountryProvider>(
-            builder: (BuildContext context, value, Widget? child) {
-              if (value.favouriteCountries.isEmpty) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 32),
-                  child: Text(
-                    "No Favorite Country",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: darkGreyColor,
-                        ),
-                  ),
-                );
-              }
-              return SizedBox(
-                height: 110,
-                width: AppSize.deviceWidth(context),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: value.favouriteCountries.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    String imageHeroTag =
-                        "${value.favouriteCountries[index].backdropImage} isFavorite";
-                    return InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => CountryDetail(
-                              imageHeroTag: imageHeroTag,
-                              country: value.favouriteCountries[index],
-                            ),
-                          ),
-                        );
-                      },
-                      child: Hero(
-                        tag: imageHeroTag,
-                        child: Container(
-                          margin: EdgeInsets.only(
-                            left: (index == 0) ? 32.0 : 4.0,
-                            right:
-                                (index == value.favouriteCountries.length - 1)
-                                    ? 32.0
-                                    : 4.0,
-                          ),
-                          width: AppSize.deviceWidth(context) * .6,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                "assets/images/${value.favouriteCountries[index].backdropImage}",
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                            child: BackdropFilter(
-                              filter:
-                                  ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    gradient: primaryGradient,
-                                    backgroundBlendMode: BlendMode.softLight),
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          value.favouriteCountries[index]
-                                              .countryName,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyLarge!
-                                              .copyWith(
-                                                color:
-                                                    primaryLightBackgroundColor,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 6,
-                                      decoration: BoxDecoration(
-                                          gradient: primaryGradient),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+          // Consumer<FavoriteCountryProvider>(
+          //   builder: (BuildContext context, value, Widget? child) {
+          //     if (value.favouriteCountries.isEmpty) {
+          //       return Padding(
+          //         padding: const EdgeInsets.only(left: 32),
+          //         child: Text(
+          //           "No Favorite Country",
+          //           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+          //                 color: darkGreyColor,
+          //               ),
+          //         ),
+          //       );
+          //     }
+          //     return SizedBox(
+          //       height: 110,
+          //       width: AppSize.deviceWidth(context),
+          //       child: ListView.builder(
+          //         shrinkWrap: true,
+          //         scrollDirection: Axis.horizontal,
+          //         itemCount: value.favouriteCountries.length,
+          //         itemBuilder: (BuildContext context, int index) {
+          //           String imageHeroTag =
+          //               "${value.favouriteCountries[index].backdropImage} isFavorite";
+          //           return InkWell(
+          //             onTap: () {
+          //               Navigator.of(context).push(
+          //                 MaterialPageRoute(
+          //                   builder: (context) => CountryDetail(
+          //                     imageHeroTag: imageHeroTag,
+          //                     country: value.favouriteCountries[index],
+          //                   ),
+          //                 ),
+          //               );
+          //             },
+          //             child: Hero(
+          //               tag: imageHeroTag,
+          //               child: Container(
+          //                 margin: EdgeInsets.only(
+          //                   left: (index == 0) ? 32.0 : 4.0,
+          //                   right:
+          //                       (index == value.favouriteCountries.length - 1)
+          //                           ? 32.0
+          //                           : 4.0,
+          //                 ),
+          //                 width: AppSize.deviceWidth(context) * .6,
+          //                 decoration: BoxDecoration(
+          //                   image: DecorationImage(
+          //                     image: AssetImage(
+          //                       "assets/images/${value.favouriteCountries[index].backdropImage}",
+          //                     ),
+          //                     fit: BoxFit.cover,
+          //                   ),
+          //                   borderRadius: const BorderRadius.all(
+          //                     Radius.circular(12),
+          //                   ),
+          //                 ),
+          //                 child: ClipRRect(
+          //                   borderRadius: const BorderRadius.all(
+          //                     Radius.circular(12),
+          //                   ),
+          //                   child: BackdropFilter(
+          //                     filter:
+          //                         ImageFilter.blur(sigmaX: 1.0, sigmaY: 1.0),
+          //                     child: Container(
+          //                       decoration: BoxDecoration(
+          //                           gradient: primaryGradient,
+          //                           backgroundBlendMode: BlendMode.softLight),
+          //                       child: Column(
+          //                         children: [
+          //                           Expanded(
+          //                             child: Center(
+          //                               child: Text(
+          //                                 value.favouriteCountries[index]
+          //                                     .countryName,
+          //                                 style: Theme.of(context)
+          //                                     .textTheme
+          //                                     .bodyLarge!
+          //                                     .copyWith(
+          //                                       color:
+          //                                           primaryLightBackgroundColor,
+          //                                     ),
+          //                               ),
+          //                             ),
+          //                           ),
+          //                           Container(
+          //                             height: 6,
+          //                             decoration: BoxDecoration(
+          //                                 gradient: primaryGradient),
+          //                           ),
+          //                         ],
+          //                       ),
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //           );
+          //         },
+          //       ),
+          //     );
+          //   },
+          // ),
           const SizedBox(
             height: 32,
           ),

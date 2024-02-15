@@ -61,33 +61,51 @@ class AppBarContainer extends StatelessWidget {
                   if (withRightIcon)
                     Consumer<FavoriteCountryProvider>(
                       builder: (context, value, child) {
-                        // value.favoriteChecker(country);
-                        return SizedBox(
-                          height: 48.0,
-                          width: 48.0,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.all(0),
-                              backgroundColor: secondaryLightBackgroundColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
+                        return FutureBuilder(
+                          future: value.favouriteCountries,
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Icon(CustomIcon.heartLine);
+                            }
+
+                            bool isFavorite = false;
+                            int countryId = country!.id;
+                            for (var element in snapshot.data!) {
+                              if (countryId == element.id) {
+                                isFavorite = true;
+                                break;
+                              }
+                            }
+                            return SizedBox(
+                              height: 48.0,
+                              width: 48.0,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.all(0),
+                                  backgroundColor:
+                                      secondaryLightBackgroundColor,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  isFavorite
+                                      ? value.removeFromFavorite(country!.id)
+                                      : value.addToFavorite(country!);
+                                },
+                                child: Center(
+                                  child: Icon(
+                                    isFavorite
+                                        ? CustomIcon.heartSolid
+                                        : CustomIcon.heartLine,
+                                    color: primaryColor,
+                                    size: 28.0,
+                                  ),
+                                ),
                               ),
-                            ),
-                            onPressed: () {
-                              !value.favouriteCountries.contains(country)
-                                  ? value.addToFavorite(country!)
-                                  : value.removeFromFavorite(country!);
-                            },
-                            child: Center(
-                              child: Icon(
-                                value.favouriteCountries.contains(country)
-                                    ? CustomIcon.heartSolid
-                                    : CustomIcon.heartLine,
-                                color: primaryColor,
-                                size: 28.0,
-                              ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     ),

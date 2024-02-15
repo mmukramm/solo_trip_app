@@ -1,4 +1,5 @@
 class Country {
+  final int id;
   final String countryName;
   final String flag;
   final int population;
@@ -7,7 +8,8 @@ class Country {
   final String capital;
   final String overview;
 
-  const Country({
+  Country({
+    required this.id,
     required this.countryName,
     required this.flag,
     required this.population,
@@ -16,4 +18,27 @@ class Country {
     required this.capital,
     required this.overview,
   });
+
+  Country.fromMap(Map<String, dynamic> item)
+      : id = item["id"],
+        countryName = item["countryName"],
+        flag = item["flag"],
+        population = item["population"],
+        region = item["region"],
+        backdropImage = item["backdropImage"],
+        capital = item["capital"],
+        overview = item["overview"];
+
+  Map<String, Object> toMap() {
+    return {
+      "id": id,
+      "countryName": countryName,
+      "flag": flag,
+      "population": population,
+      "region": region,
+      "backdropImage": backdropImage,
+      "capital": capital,
+      "overview": overview
+    };
+  }
 }

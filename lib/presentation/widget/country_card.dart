@@ -20,14 +20,11 @@ class CountryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String imageHeroTag =
-        country.backdropImage + (isFavorite! ? " isFavorite" : "");
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => CountryDetail(
-              imageHeroTag: imageHeroTag,
               country: country,
             ),
           ),
@@ -52,7 +49,7 @@ class CountryCard extends StatelessWidget {
             Expanded(
               flex: 6,
               child: Hero(
-                tag: imageHeroTag,
+                tag: country.id,
                 child: Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
@@ -147,13 +144,12 @@ class CountryCard extends StatelessWidget {
                         Flexible(
                           child: Text(
                             country.region,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.onBackground,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                    ),
                           ),
                         )
                       ],

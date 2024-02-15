@@ -8,11 +8,9 @@ import 'package:solo_trip_app/presentation/widget/app_bar_container.dart';
 
 class CountryDetail extends StatelessWidget {
   final Country country;
-  final String imageHeroTag;
   const CountryDetail({
     Key? key,
     required this.country,
-    required this.imageHeroTag,
   }) : super(key: key);
 
   @override
@@ -49,7 +47,7 @@ class CountryDetail extends StatelessWidget {
               left: 0,
               right: 0,
               child: Hero(
-                tag: imageHeroTag,
+                tag: country.id,
                 child: Container(
                   height: AppSize.deviceHeight(context) * .3,
                   decoration: BoxDecoration(

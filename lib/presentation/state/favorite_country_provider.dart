@@ -1,20 +1,33 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
+import 'package:solo_trip_app/data/database/sqlite_service.dart';
 import 'package:solo_trip_app/data/models/country.dart';
 
 class FavoriteCountryProvider with ChangeNotifier {
-  final List<Country> _favouriteCountries = [];
+  Future<List<Country>> favouriteCountries = Future<List<Country>>(
+    () => SqliteService.getItems(),
+  );
 
-  UnmodifiableListView<Country> get favouriteCountries => UnmodifiableListView(_favouriteCountries);
-
-  void addToFavorite(Country country) {
-    _favouriteCountries.add(country);
+  void addToFavorite(Country country) async {
+    await SqliteService.insertItem(country);
+    favouriteCountries = Future<List<Country>>(
+      () => SqliteService.getItems(),
+    );
     notifyListeners();
   }
 
-  void removeFromFavorite(Country country) {
-    _favouriteCountries.remove(country);
+  void removeFromFavorite(int id) async {
+    await SqliteService.deleteItem(id);
+    favouriteCountries = Future<List<Country>>(
+      () => SqliteService.getItems(),
+    );
+    notifyListeners();
+  }
+
+  void clearAll() {
+    SqliteService.deleteAllCountry();
+    favouriteCountries = Future<List<Country>>(
+      () => SqliteService.getItems(),
+    );
     notifyListeners();
   }
 }
