@@ -11,23 +11,37 @@ class CountryCard extends StatelessWidget {
   final Country country;
   final int index;
   final bool? isFavorite;
+  final VoidCallback? samplefunction;
   const CountryCard({
     super.key,
     required this.country,
     required this.index,
     this.isFavorite = false,
+    this.samplefunction,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.of(context).push(
+        Navigator.of(context)
+            .push(
           MaterialPageRoute(
             builder: (context) => CountryDetail(
               country: country,
             ),
           ),
+        )
+            .then(
+          (value) {
+            if (value) {
+              if (samplefunction != null) {
+                samplefunction!();
+              }
+            } else {
+              null;
+            }
+          },
         );
       },
       child: Container(
@@ -39,9 +53,10 @@ class CountryCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
-                offset: const Offset(4.0, 4.0),
-                blurRadius: 4.0,
-                color: Colors.black.withOpacity(.15)),
+              offset: const Offset(4.0, 4.0),
+              blurRadius: 4.0,
+              color: Colors.black.withOpacity(.15),
+            ),
           ],
         ),
         child: Row(
