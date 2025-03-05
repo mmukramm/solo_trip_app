@@ -28,7 +28,7 @@ class _AppBarContainerState extends State<AppBarContainer> {
   void initState() {
     super.initState();
     fetchData();
-    countryId = widget.country!.id;
+    countryId = widget.country?.id ?? 0;
   }
 
   void fetchData() {
